@@ -2,7 +2,7 @@ package com.coursera.inversions
 
 import java.util.Arrays.copyOfRange
 
-fun countInversions(arr: IntArray): Int {
+fun countInversions(arr: IntArray): Long {
 
     if (arr.size == 1) return 0
 
@@ -17,8 +17,8 @@ fun countInversions(arr: IntArray): Int {
     return lResult + rResult + splitInversionCount
 }
 
-fun mergeAndCount(leftArr: IntArray, rightArr: IntArray, result: IntArray): Int {
-    var middleInversionCnt = 0
+fun mergeAndCount(leftArr: IntArray, rightArr: IntArray, result: IntArray): Long {
+    var middleInversionCnt = 0L
     var i = 0
     var j = 0
     var k = 0
