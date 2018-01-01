@@ -3,6 +3,13 @@ package com.coursera.quicksort
 import org.apache.commons.lang3.mutable.MutableLong
 
 
+/**
+ * sort an array using QuickSort algorithm.
+ * @param arr array to sort
+ * @param comparisonCounter counter for number of comparisons done during sorting
+ * @param pivotChooseAlgorithm algorithm which will be used to choose pivot during sorting
+ * @see PivotChooseAlgorithm
+ */
 public fun quickSort(arr: IntArray, comparisonCounter: MutableLong, pivotChooseAlgorithm: PivotChooseAlgorithm) {
     quickSort(arr, 0, arr.size, comparisonCounter, pivotChooseAlgorithm)
 }

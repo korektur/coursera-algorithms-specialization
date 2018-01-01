@@ -7,7 +7,13 @@ enum class PivotChooseAlgorithm {
      * always take the first element in array as pivot
      */
     FIRST,
+    /**
+     * always take the last element in array as pivot
+     */
     LAST,
+    /**
+     * take median element between first, last and middle elements of array
+     */
     MEDIAN_OF_THREE
 }
 
