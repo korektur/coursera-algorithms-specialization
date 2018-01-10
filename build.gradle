@@ -19,6 +19,7 @@ sourceCompatibility = 1.9
 ext {
     junit_version = '5.0.0'
     commons_lang3_version = '3.7'
+    guava_version = '23.6-jre'
 }
 
 repositories {
@@ -28,6 +29,7 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "org.apache.commons:commons-lang3:$commons_lang3_version"
+    compile "com.google.guava:guava:$guava_version"
     testCompile "org.junit.jupiter:junit-jupiter-api:$junit_version"
     testCompile "org.junit.jupiter:junit-jupiter-params:$junit_version"
 }
