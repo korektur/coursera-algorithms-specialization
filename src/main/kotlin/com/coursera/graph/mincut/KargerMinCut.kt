@@ -1,5 +1,6 @@
-package com.coursera.mincut
+package com.coursera.graph.mincut
 
+import com.coursera.graph.Graph
 import com.google.common.annotations.VisibleForTesting
 import java.util.Random
 

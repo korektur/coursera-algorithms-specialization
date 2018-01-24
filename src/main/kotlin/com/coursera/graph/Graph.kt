@@ -1,10 +1,5 @@
-package com.coursera.mincut
+package com.coursera.graph
 
-import org.apache.commons.lang3.ArrayUtils
-import org.apache.commons.lang3.StringUtils.isNumeric
-import java.io.BufferedReader
-import java.io.File
-import java.io.FileReader
 import java.util.*
 import java.util.stream.Collectors
 import kotlin.collections.ArrayList
@@ -43,21 +38,23 @@ public class Graph {
         } else {
             adjacencyList[edge.from]!!.add(edge)
         }
+
+        adjacencyList.computeIfAbsent(edge.to, { ArrayList() })
     }
 
     fun edgeContraction(index: Int) {
         val edge = edgeList[index]
 
-        val vertexToReplace  = edge.to
+        val vertexToReplace = edge.to
 
         val vertex = edge.from
-        if (vertex == vertexToReplace ) {
+        if (vertex == vertexToReplace) {
             adjacencyList[vertex]!!.remove(edge)
             return
         }
 
-        adjacencyList[vertex]!!.addAll(adjacencyList[vertexToReplace ].orEmpty())
-        adjacencyList.remove(vertexToReplace )
+        adjacencyList[vertex]!!.addAll(adjacencyList[vertexToReplace].orEmpty())
+        adjacencyList.remove(vertexToReplace)
 
 
         for (curEdge in edgeList) {
@@ -104,24 +101,3 @@ public class Graph {
 
 }
 
-fun readGraph(file: File, delimiter: String): Graph {
-    if (!file.exists()) {
-        throw IllegalArgumentException("file not exists: $file")
-    }
-
-    val graph = Graph()
-
-    for (line in BufferedReader(FileReader(file)).lines()) {
-        val tokens = line.split(delimiter).stream().filter(::isNumeric).mapToInt { Integer.parseInt(it) }.toArray()
-
-        if (ArrayUtils.isEmpty(tokens)) {
-            throw IllegalStateException("there should be at least vertex id on the line")
-        }
-
-        val vertex = Vertex(tokens[0])
-
-        for (i in 1 until tokens.size) graph.addEdge(Edge(vertex, Vertex(tokens[i])))
-    }
-
-    return graph
-}
