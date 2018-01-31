@@ -4,7 +4,6 @@ import com.coursera.graph.Edge
 import com.coursera.graph.Graph
 import com.coursera.graph.Vertex
 import java.util.*
-import java.util.Comparator.comparing
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
@@ -16,8 +15,12 @@ class DijkstraMinPathEvaluator(private val graph: Graph) {
     private val dist = LongArray(graph.numberOfVertices() + 1, { INF })
     private val visited = BitSet(graph.numberOfVertices() + 1)
 
+    private fun compareEdges(fst: Edge, snd: Edge): Int {
+        return compareValues(fst.weight + dist[fst.from.id], snd.weight + dist[snd.from.id])
+    }
+
     public fun evaluate(source: Vertex): Map<Vertex, Long> {
-        val priorityQueue = PriorityQueue<Edge>(comparing(Edge::weight))
+        val priorityQueue = PriorityQueue<Edge>(this::compareEdges)
         val edgesInQueueByHead = HashMap<Vertex, Edge>()
 
         priorityQueue.add(Edge(Vertex(0), source, 0))
@@ -30,10 +33,10 @@ class DijkstraMinPathEvaluator(private val graph: Graph) {
             visited[edge.to.id] = true
             val newDist = calculateDistance(edge)
             if (dist[edge.to.id] > newDist) {
+                val edgesToAdd = ArrayList<Edge>()
                 val newEdges = graph.adjacencyList[edge.to]
                         .orEmpty()
                         .filter { !visited[it.to.id] }
-                val edgesToAdd = ArrayList<Edge>()
                 for (newEdge in newEdges) {
                     if (edgesInQueueByHead.containsKey(newEdge.to)) {
                         val previousEdge = edgesInQueueByHead[newEdge.to]
@@ -55,10 +58,9 @@ class DijkstraMinPathEvaluator(private val graph: Graph) {
         }
 
         val result = HashMap<Vertex, Long>()
-        for (i in 1..graph.numberOfVertices()) {
-            if (dist[i] == INF) continue
-            result.put(Vertex(i), dist[i])
-        }
+        (1..graph.numberOfVertices())
+                .filter { dist[it] != INF }
+                .forEach { result.put(Vertex(it), dist[it]) }
 
         return result
     }
