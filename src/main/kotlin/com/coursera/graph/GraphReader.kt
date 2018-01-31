@@ -1,6 +1,7 @@
 package com.coursera.graph
 
 import com.coursera.graph.InputType.ADJACENCY_LIST
+import com.coursera.graph.InputType.ADJACENCY_LIST_WITH_WEIGHTS
 import com.coursera.graph.InputType.EDGE_LIST
 import org.apache.commons.lang3.ArrayUtils
 import org.apache.commons.lang3.StringUtils
@@ -10,6 +11,7 @@ import java.io.FileReader
 
 public enum class InputType {
     ADJACENCY_LIST,
+    ADJACENCY_LIST_WITH_WEIGHTS,
     EDGE_LIST;
 }
 
@@ -21,6 +23,7 @@ public fun readGraph(file: File, delimiter: String, inputType: InputType): Graph
     return when (inputType) {
         ADJACENCY_LIST -> readGraphFromAdjacencyList(file, delimiter)
         EDGE_LIST -> readFromEdgeList(file, delimiter)
+        ADJACENCY_LIST_WITH_WEIGHTS -> readGraphFromAdjacencyListWithWeights(file, delimiter)
     }
 }
 
@@ -28,7 +31,7 @@ private fun readGraphFromAdjacencyList(file: File, delimiter: String): Graph {
     val graph = Graph()
 
     for (line in BufferedReader(FileReader(file)).lines()) {
-        val tokens = line.split(delimiter).stream().filter(StringUtils::isNumeric).mapToInt { Integer.parseInt(it) }.toArray()
+        val tokens = line.split(delimiter).stream().filter(StringUtils::isNumeric).mapToInt { it.toInt() }.toArray()
 
         if (ArrayUtils.isEmpty(tokens)) {
             throw IllegalStateException("there should be at least vertex id on the line")
@@ -42,11 +45,35 @@ private fun readGraphFromAdjacencyList(file: File, delimiter: String): Graph {
     return graph
 }
 
+
+private fun readGraphFromAdjacencyListWithWeights(file: File, delimiter: String): Graph {
+    val graph = Graph()
+
+    for (line in BufferedReader(FileReader(file)).lines()) {
+        val tokens = line.split(delimiter)
+
+        if (tokens.isEmpty()) {
+            throw IllegalStateException("there should be at least vertex id on the line")
+        }
+
+        val vertex = Vertex(tokens[0].toInt())
+
+        for (i in 1 until tokens.size) {
+            if (tokens[i].isEmpty()) continue
+            val (to, weight) = tokens[i].split(",")
+            graph.addEdge(Edge(vertex, Vertex(to.toInt()), weight.toLong()))
+        }
+    }
+
+    return graph
+}
+
+
 private fun readFromEdgeList(file: File, delimiter: String): Graph {
     val graph = Graph()
 
     for (line in BufferedReader(FileReader(file)).lines()) {
-        val tokens = line.split(delimiter).stream().filter(StringUtils::isNumeric).mapToInt { Integer.parseInt(it) }.toArray()
+        val tokens = line.split(delimiter).stream().filter(StringUtils::isNumeric).mapToInt { it.toInt() }.toArray()
 
         if (tokens.size != 2) {
             throw IllegalStateException("there should be at only two vertices for each edge: $line")

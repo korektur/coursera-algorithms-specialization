@@ -6,7 +6,10 @@ import kotlin.collections.ArrayList
 
 data class Vertex(val id: Int)
 
-data class Edge(var from: Vertex, var to: Vertex)
+data class Edge(var from: Vertex, var to: Vertex, var weight: Long) {
+    constructor(from: Vertex, to: Vertex) : this(from, to, 0L)
+}
+
 
 public class Graph {
 
