@@ -3,15 +3,16 @@ package com.coursera.trees
 import java.util.*
 import java.util.Collections.swap
 import javax.annotation.Nullable
+import kotlin.collections.ArrayList
 
-class Heap<T> {
+/**
+ * Binary heap implementation
+ */
+class Heap<T>(private val comparator: Comparator<T>) {
 
-    private val comparator: Comparator<T>
-    private val tree: MutableList<T?>
+    private val tree: MutableList<T?> = ArrayList()
 
-    constructor(comparator: Comparator<T>) {
-        this.comparator = comparator
-        this.tree = ArrayList()
+    init {
         tree.add(null)
     }
 
@@ -94,4 +95,5 @@ class Heap<T> {
     public fun size(): Int {
         return tree.size - 1
     }
+
 }
