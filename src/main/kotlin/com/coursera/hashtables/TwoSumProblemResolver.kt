@@ -1,9 +1,6 @@
 package com.coursera.hashtables
 
-import java.lang.Long.max
-import java.lang.Long.min
 import java.util.*
-import kotlin.collections.HashMap
 import kotlin.collections.HashSet
 
 /**
@@ -13,12 +10,12 @@ import kotlin.collections.HashSet
  * This particular implementation for given set `S` range `[a,b]` returns how many numbers in given range has
  * 2SUM solution with distict numbers `a` and `b` in `S`.
  */
-class TwoSumProblemResolver {
+class TwoSumProblemResolver(arr: LongArray) {
 
     private val storage = HashSet<Long>()
     private val arr: LongArray
 
-    constructor(arr: LongArray) {
+    init {
         this.arr = arr.copyOf()
         Arrays.sort(this.arr)
         arr.forEach { storage.add(it) }
