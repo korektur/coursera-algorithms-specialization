@@ -16,7 +16,7 @@ class TwoSumProblemResolver(arr: LongArray) {
     private val arr: LongArray
 
     init {
-        this.arr = arr.copyOf()
+        this.arr = arr.sortedArray().distinct().toLongArray()
         Arrays.sort(this.arr)
         arr.forEach { storage.add(it) }
     }
