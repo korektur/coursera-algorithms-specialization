@@ -133,7 +133,7 @@ internal class DijkstraMinPathEvaluatorTest {
 
     @Test
     fun testEvaluateBigGraph() {
-        val graph = readGraph(File(FILE_NAME), "\t", InputType.ADJACENCY_LIST_WITH_WEIGHTS)
+        val graph = readGraph(File(FILE_NAME), "\t", InputType.ADJACENCY_LIST_WITH_WEIGHTS, true)
 
         val result = DijkstraMinPathEvaluator(graph).evaluate(Vertex(1))
         val verticies = intArrayOf(7, 37, 59, 82, 99, 115, 133, 165, 188, 197)

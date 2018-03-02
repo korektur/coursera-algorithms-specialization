@@ -2,6 +2,7 @@ package com.coursera.scheduling
 
 import com.coursera.scheduling.Strategy.DIFFERENCE
 import com.coursera.scheduling.Strategy.RATIO
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.io.BufferedReader
 import java.io.FileReader
@@ -25,7 +26,7 @@ internal class SchedulerKtTest {
             jobs.add(Job(weightStr.toLong(), lengthStr.toInt()))
         }
 
-        println(schedule(jobs, DIFFERENCE))
+        assertEquals(69119377652, schedule(jobs, DIFFERENCE))
     }
 
 
@@ -41,6 +42,6 @@ internal class SchedulerKtTest {
             jobs.add(Job(weightStr.toLong(), lengthStr.toInt()))
         }
 
-        println(schedule(jobs, RATIO))
+        assertEquals(67311454237, schedule(jobs, RATIO))
     }
 }

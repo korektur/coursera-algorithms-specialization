@@ -75,7 +75,7 @@ internal class KargerMinCutKtTest {
 
     @Test
     fun testMinCut() {
-        val graph = readGraph(File(FILE_NAME), "\t", ADJACENCY_LIST)
+        val graph = readGraph(File(FILE_NAME), "\t", ADJACENCY_LIST, true)
 
         val minCut = KARGER_MIN_CUT.minCut(graph, 2000)
 

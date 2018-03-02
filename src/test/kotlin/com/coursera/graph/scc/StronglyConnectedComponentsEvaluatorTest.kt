@@ -43,7 +43,7 @@ internal class StronglyConnectedComponentsEvaluatorTest {
 
     @Test
     fun testSCCBigDataSet() {
-        val graph = readGraph(File(FILE_NAME), " ", EDGE_LIST)
+        val graph = readGraph(File(FILE_NAME), " ", EDGE_LIST, true)
 
         val result = StronglyConnectedComponentsEvaluator(graph).evaluate()
 
