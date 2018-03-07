@@ -12,6 +12,8 @@ internal class DisjointSetTest {
         arr.forEach { set.add(it) }
 
         arr.forEach { assertEquals(it, set.find(it)) }
+
+        assertFalse(set.add(1))
     }
 
     @Test

@@ -6,14 +6,11 @@ import com.coursera.graph.Vertex
 import java.util.*
 import kotlin.collections.ArrayList
 
-class PrimsMstEvaluator(private val graph: Graph) {
-    companion object {
-        val INF = Long.MAX_VALUE
-    }
+class PrimsMstEvaluator(private val graph: Graph): MstEvaluator {
 
     private val visited = BitSet(graph.numberOfVertices() + 1)
 
-    public fun evaluate(): List<Edge> {
+    public override fun evaluate(): List<Edge> {
         val source = graph.edgeList[0].from
         val priorityQueue = PriorityQueue<Edge>(Comparator.comparing(Edge::weight))
         val edgesInQueueByHead = HashMap<Vertex, Edge>()

@@ -5,39 +5,46 @@ import java.text.MessageFormat.format
 class DisjointSet<T> {
 
     private val values = HashMap<T, Node<T>>()
+    private var setCount = 0
 
     private data class Node<T>(val value: T) {
         var rank = 1
         var ancestor = this
     }
 
-    public fun add(value: T) {
-        if (values.contains(value)) {
-            throw IllegalArgumentException("already contrains given key: " + value)
+    public fun add(value: T): Boolean {
+        if (!values.contains(value)) {
+            values.put(value, Node(value))
+            ++setCount
+            return true
         }
 
-        values.put(value, Node(value))
+        return false
     }
 
     public fun merge(fst: T, snd: T) {
-        val fstNode = values[fst]
-        val sndNode = values[snd]
+        var fstNode = values[fst]
+        var sndNode = values[snd]
         if (fstNode == null || sndNode == null) {
             throw IllegalArgumentException(format("cannot merge not existing node: fst={0}, snd={1}", fst, snd))
         }
 
-        if (fstNode.rank < sndNode.rank) {
-            fstNode.ancestor = sndNode
-        } else if (fstNode.rank > sndNode.rank) {
-            sndNode.ancestor = fstNode
-        } else {
-            sndNode.ancestor = fstNode
-            fstNode.rank++
+        fstNode = find(fstNode)
+        sndNode = find(sndNode)
+
+        when {
+            fstNode.rank < sndNode.rank -> fstNode.ancestor = sndNode
+            fstNode.rank > sndNode.rank -> sndNode.ancestor = fstNode
+            else -> {
+                sndNode.ancestor = fstNode
+                fstNode.rank++
+            }
         }
+        --setCount
     }
 
-    public fun find(value: T): T {
-        val node = values[value] ?: throw IllegalArgumentException("value not found: " + value)
+    public fun find(value: T): T? {
+        val node = values[value] ?: return null
         return find(node).value
     }
 
@@ -47,5 +54,9 @@ class DisjointSet<T> {
         }
 
         return node.ancestor
+    }
+
+    public fun getCount(): Int {
+        return setCount
     }
 }
