@@ -4,12 +4,8 @@ import com.coursera.graph.Edge
 import com.coursera.graph.Graph
 import com.coursera.graph.Vertex
 import com.coursera.trees.DisjointSet
-import java.lang.Long.max
-import java.lang.Long.min
 import java.util.Comparator.comparing
 import java.util.stream.Collectors
-import kotlin.math.max
-import kotlin.math.min
 
 class ClusterEvaluator(val graph: Graph) {
 
