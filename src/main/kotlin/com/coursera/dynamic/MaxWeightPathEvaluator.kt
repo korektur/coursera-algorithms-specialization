@@ -41,13 +41,13 @@ class MaxWeightPathEvaluator(val weights: LongArray) {
 
         var i = d.lastIndex
         while (i >= 2) {
-            if (d[i] == weights[i] + d[i - 2]) {
-                path.add(i + 1)
-                i -= 2
-            } else if (d[i] == d[i - 1]) {
-                --i
-            } else {
-                throw IllegalStateException("invalid state at $i")
+            when {
+                d[i] == weights[i] + d[i - 2] -> {
+                    path.add(i + 1)
+                    i -= 2
+                }
+                d[i] == d[i - 1] -> --i
+                else -> throw IllegalStateException("invalid state at $i")
             }
         }
 
