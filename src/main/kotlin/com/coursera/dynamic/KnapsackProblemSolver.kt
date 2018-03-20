@@ -19,7 +19,5 @@ public fun solve(capacity: Int, items: List<Item>): Long {
         }
     }
 
-    d.forEach { println(Arrays.toString(it)) }
-
     return d[items.size][capacity]
 }
