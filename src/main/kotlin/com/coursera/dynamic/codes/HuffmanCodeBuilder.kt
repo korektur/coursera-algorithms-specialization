@@ -5,13 +5,13 @@ import java.util.*
 import kotlin.collections.HashMap
 import kotlin.collections.HashSet
 
-class HuffmanCodeBuilder<T>(val symbolWeights: Map<T, Long>) {
+class HuffmanCodeBuilder<T>(private val symbolWeights: Map<T, Long>) {
 
-    val comparator = Comparator.comparingLong<Vertex<T>> { it.weight }
-    val initialQueue: Queue<Vertex<T>> = ArrayDeque<Vertex<T>>()
-    val newVertexQueue: Queue<Vertex<T>> = PriorityQueue<Vertex<T>>(comparator)
-    var root: Vertex<T>? = null
-    val encodingMap: MutableMap<T, String> = HashMap()
+    private val comparator = Comparator.comparingLong<Vertex<T>> { it.weight }
+    private val initialQueue: Queue<Vertex<T>> = ArrayDeque<Vertex<T>>()
+    private val newVertexQueue: Queue<Vertex<T>> = PriorityQueue<Vertex<T>>(comparator)
+    private var root: Vertex<T>? = null
+    private val encodingMap: MutableMap<T, String> = HashMap()
 
     public data class Vertex<T>(public val symbols: Set<T>,
                                 public val weight: Long,

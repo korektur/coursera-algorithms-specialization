@@ -1,10 +1,10 @@
 package com.coursera.dynamic
 
-class MaxWeightPathEvaluator(val weights: LongArray) {
+class MaxWeightPathEvaluator(private val weights: LongArray) {
 
-    val d = LongArray(weights.size)
-    val path = HashSet<Int>()
-    var maxPathWeight = -1L
+    private val d = LongArray(weights.size)
+    private val path = HashSet<Int>()
+    private var maxPathWeight = -1L
 
     public fun evaluate(): Long {
         if (maxPathWeight != -1L) {
