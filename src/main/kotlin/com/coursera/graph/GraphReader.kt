@@ -17,7 +17,7 @@ public enum class InputType {
     EDGE_LIST_WITH_WEIGHTS;
 }
 
-public fun readGraph(file: File, delimiter: String, inputType: InputType, direted: Boolean): Graph {
+public fun readGraph(file: File, delimiter: String, inputType: InputType, directed: Boolean = false): Graph {
     if (!file.exists()) {
         throw IllegalArgumentException("file not exists: $file")
     }
@@ -26,7 +26,7 @@ public fun readGraph(file: File, delimiter: String, inputType: InputType, direte
         ADJACENCY_LIST -> readGraphFromAdjacencyList(file, delimiter)
         EDGE_LIST -> readFromEdgeList(file, delimiter)
         ADJACENCY_LIST_WITH_WEIGHTS -> readGraphFromAdjacencyListWithWeights(file, delimiter)
-        EDGE_LIST_WITH_WEIGHTS -> readFromEdgeListWithWeights(file, delimiter, direted)
+        EDGE_LIST_WITH_WEIGHTS -> readFromEdgeListWithWeights(file, delimiter, directed)
     }
 }
 
