@@ -26,9 +26,16 @@ repositories {
     mavenCentral()
 }
 
+kotlin {
+    experimental {
+        coroutines 'enable'
+    }
+}
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "org.apache.commons:commons-lang3:$commons_lang3_version"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5"
     compile "com.google.guava:guava:$guava_version"
     testCompile "org.junit.jupiter:junit-jupiter-api:$junit_version"
     testCompile "org.junit.jupiter:junit-jupiter-params:$junit_version"
