@@ -88,11 +88,11 @@ class TravelingSalesmanProblemSolverTest {
         val fstMedianPoint = input[12]
         val sndMedianPoint = input[13]
         val leftPart = input.stream()
-                .filter { it.x <= fstMedianPoint.x }
+                .filter { it.x <= sndMedianPoint.x }
                 .collect(toList())
 
         val rightPart = input.stream()
-                .filter { it.x >= sndMedianPoint.x }
+                .filter { it.x >= fstMedianPoint.x }
                 .collect(toList())
 
         println(rightPart.size)
@@ -116,8 +116,9 @@ class TravelingSalesmanProblemSolverTest {
             println(rightResult.await())
 
             println(leftResult.await() + rightResult.await())
-            val ans = leftResult.getCompleted() + rightResult.getCompleted() - fstMedianPoint.distTo(input[11]) - sndMedianPoint.distTo(input[14]) +
-                    fstMedianPoint.distTo(sndMedianPoint) + input[11].distTo(input[14])
+            val ans = leftResult.getCompleted() + rightResult.getCompleted() - fstMedianPoint.distTo(sndMedianPoint)
+//            - fstMedianPoint.distTo(input[11]) - sndMedianPoint.distTo(input[14]) +
+//                    fstMedianPoint.distTo(sndMedianPoint) + input[11].distTo(input[14])
             println(ans)
         }
 

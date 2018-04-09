@@ -36,7 +36,12 @@ class TravelingSalesmanProblemSolver(val graph: Array<DoubleArray>) {
             return d[id][mask]
         }
 
-        for (j in 0 until n) {
+        if (mask == 1) {
+            d[id][mask] = graph[id][0]
+            return d[id][mask]
+        }
+
+        for (j in 1 until n) {
             if (j == id) {
                 continue
             }
