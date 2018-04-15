@@ -1,17 +1,10 @@
 package com.coursera.graph.path.np
 
-import com.coursera.graph.Edge
-import com.coursera.graph.Graph
-import com.coursera.graph.Vertex
-import com.coursera.graph.clustering.ClusterEvaluator
 import com.coursera.graph.path.np.TravelingSalesmanProblemSolver.Companion.INF
 import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import java.lang.Math.pow
-import java.lang.Math.sqrt
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.stream.Collectors.toList
@@ -69,12 +62,6 @@ class TravelingSalesmanProblemSolverTest {
         val result = runBlocking { tspSolver.evaluate() }
 
         assertEquals(4, result.toInt())
-    }
-
-    private data class Point(val x: Double, val y: Double) {
-        fun distTo(other: Point): Double {
-            return sqrt(pow(x - other.x, 2.0) + pow(y - other.y, 2.0))
-        }
     }
 
     @Test
